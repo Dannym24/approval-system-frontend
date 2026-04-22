@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { approveRequest, getEvidence } from "../services/api";
 
+const BASE_URL =
+  "http://approval-system-env.eba-mjkh2mys.us-east-2.elasticbeanstalk.com/api";
+
 const RequestDetailPage = () => {
   const { id } = useParams();
 
@@ -12,7 +15,7 @@ const RequestDetailPage = () => {
 
   const loadRequest = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/purchase-requests/${id}`);
+      const res = await fetch(`${BASE_URL}/purchase-requests/${id}`);
       const data = await res.json();
       setRequest(data);
     } catch (err) {

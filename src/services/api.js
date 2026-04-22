@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "http://approval-system-env.eba-mjkh2mys.us-east-2.elasticbeanstalk.com/api";
 
 export const createRequest = async (data) => {
   const response = await fetch(`${BASE_URL}/purchase-requests`, {

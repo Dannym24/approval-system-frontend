@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { approveRequest } from "../services/api";
 
@@ -12,9 +12,6 @@ const ApprovePage = () => {
   const [otp, setOtp] = useState("");
   const [message, setMessage] = useState("");
   const [decision, setDecision] = useState("");
-
-  useEffect(() => {
-  }, []);
 
   const handleApprove = async (dec) => {
     if (!otp) {
@@ -41,39 +38,29 @@ const ApprovePage = () => {
 
   return (
     <div className="container">
-
       <div className="card">
         <h2>Flujo de Aprobación</h2>
 
         <p><b>Solicitud ID:</b> {solicitudId}</p>
-        <p><b>Email aprobador:</b> {email}</p>
-        <p><b>Token:</b> {token}</p>
+        <p><b>Email:</b> {email}</p>
 
         <input
-          type="text"
-          placeholder="Ingresa OTP"
+          placeholder="OTP"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
         />
 
-        <button
-          className="primary"
-          onClick={() => handleApprove("APPROVED")}
-        >
+        <button onClick={() => handleApprove("APPROVED")}>
           Aprobar
         </button>
 
-        <button
-          className="danger"
-          onClick={() => handleApprove("REJECTED")}
-        >
+        <button onClick={() => handleApprove("REJECTED")}>
           Rechazar
         </button>
 
         {message && <p>{message}</p>}
         {decision && <p>Decisión: {decision}</p>}
       </div>
-
     </div>
   );
 };

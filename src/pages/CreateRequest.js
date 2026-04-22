@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+const BASE_URL =
+  "http://approval-system-env.eba-mjkh2mys.us-east-2.elasticbeanstalk.com/api/purchase-requests";
+
 const CreateRequestPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,14 +20,16 @@ const CreateRequestPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/purchase-requests", {
+      const response = await fetch(BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
       const data = await response.json();
-      setMessage(`Solicitud creada con ID: ${data.requestId}`);
+      setMessage(
+        `ID: ${data.requestId} | OTPs: ${data.otpList.join(", ")}`
+      );
     } catch (err) {
       console.error(err);
       setMessage("Error creando la solicitud");
@@ -37,14 +42,24 @@ const CreateRequestPage = () => {
         <h2>Crear Solicitud de Compra</h2>
 
         <form onSubmit={handleSubmit}>
-          <label>Título</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input
+            placeholder="Título"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-          <label>Descripción</label>
-          <input value={description} onChange={(e) => setDescription(e.target.value)} />
+          <input
+            placeholder="Descripción"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
 
-          <label>Monto</label>
-          <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          <input
+            type="number"
+            placeholder="Monto"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
 
           <button type="submit">Crear Solicitud</button>
         </form>

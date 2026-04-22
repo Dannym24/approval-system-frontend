@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const BASE_URL =
+  "http://approval-system-env.eba-mjkh2mys.us-east-2.elasticbeanstalk.com/api/purchase-requests";
+
 const ListRequestsPage = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
 
   const loadRequests = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/purchase-requests");
+      const response = await fetch(BASE_URL);
       const data = await response.json();
       setRequests(data);
     } catch (error) {
